@@ -1,4 +1,4 @@
-et myXPos = 250;
+let myXPos = 250;
 let myYPos = 490;
 let brickArray = [];
 let ballXPos = 300;
