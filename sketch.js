@@ -1,5 +1,4 @@
-
-let myXPos = 250;
+et myXPos = 250;
 let myYPos = 490;
 let brickArray = [];
 let ballXPos = 300;
@@ -15,39 +14,31 @@ let r;
 let g; 
 let b; 
 let state = 1;
-
-
+let charizardImage;
+let pokeballImage;
+function preload(){
+    charizardImage = loadImage("images/charizard.png");
+    pokeballImage = loadImage("images/pokeball.png");
+}
 function setup() {
     createCanvas(500, 500);
     noStroke();
-
     x = random(25, 450);
     y = random(25, 200);
     r = 0;
     g = 0;
     b = 255;
-
-
     rectMode(CENTER);
-    
-
     ballXSpeed = random(-5, 5);
     ballYSpeed = random(-5, 5);
-    
-    
 }
-
 function draw() {
     background(0);
-   
     //Square
-    rect(x , y, 40, 40);
-    
-
-
-    fill(255, 0, 0);
+    square(x , y, 0, 0);
+    image(charizardImage, x, y, 80, 80);
+    fill(0, 0, 255);
     rect(myXPos, myYPos, 80, 10);
-    
     if(keyIsDown(LEFT_ARROW)) {
         myXPos -=5
     }
@@ -63,23 +54,18 @@ function draw() {
     if (myXPos < 45){
         myXPos = 45
     }
-    
-
     ballXPos += ballXSpeed * ballXDirection;
     ballYPos += ballYSpeed * ballYDirection;
-
+    //BALL
     fill(255, 0, 0);
-    ellipse(ballXPos, ballYPos, 40, 40);
-
-
+    ellipse(ballXPos, ballYPos, 0, 0);
+    image(pokeballImage, ballXPos, ballYPos, 40, 40);
     if (ballXPos < 25 || ballXPos > 475) {
         ballXDirection *= -1;
    }
-
    if (ballYPos < 25) {
        ballYDirection *= -1;
     }
-    
     //Lose Condition
    if (ballYPos >= myYPos - 15 && ballXPos >= myXPos - sliderWidth/2 && ballXPos <= myXPos + sliderWidth/2 ) {
        ballXDirection *= -1;
@@ -87,24 +73,18 @@ function draw() {
    }
    else if (ballYPos > 500) {
     state = 2;
-
    }
-
    //Square Conditions
    if (ballYPos <= y + 20 && ballXPos >= x - 20 && ballXPos <= x + 20) {
     ballXDirection *= -1;
     ballYDirection *= -1;
     state = 3;
-    
    }
    else if (ballYPos >= y - 20 && ballXPos >= x - 20 && ballXPos <= + 20) {
     ballXDirection *= -1;
     ballYDirection *= -1;
     state = 3;
-    
-     
    } 
-
    //State
    if (state == 2){
         ballXPos = 250;
@@ -113,7 +93,6 @@ function draw() {
         background(0);
         textSize(32);
         text("Game over", 250, 250)
-      
    }
     else if (state == 3){
         ballXPos = 250;
@@ -123,7 +102,4 @@ function draw() {
         textSize(20);
         text("You caught charizard", 250, 250)
    }
-
-
-
 }
